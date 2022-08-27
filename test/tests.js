@@ -1,9 +1,8 @@
-const assert = require('chai').assert;
-const expect = require('chai').expect;
-const filename = 'usergr_solution';
-const sol = require('../Solutions/' + filename);
-require('mocha-sinon');
-
+const assert = require("chai").assert;
+const expect = require("chai").expect;
+const filename = "usergr_solution";
+const sol = require("../Solutions/MartinLednar_solution");
+require("mocha-sinon");
 
 describe("JS_Fun_Practice", function () {
   describe("identity()", function () {
@@ -215,15 +214,7 @@ describe("JS_Fun_Practice", function () {
   });
   describe("composeu(...funcs)", function () {
     it(`is a compose function generalized for any amount of arguments`, function () {
-      assert.equal(
-        sol.composeu(
-          sol.doubl,
-          sol.square,
-          sol.identity,
-          sol.curry(sol.add, 1, 2)
-        )(5),
-        103
-      );
+      assert.equal(sol.composeu(sol.doubl, sol.square, sol.identity, sol.curry(sol.add, 1, 2))(5), 103);
     });
   });
   describe("composeb(binary1,binary2)", function () {
@@ -240,10 +231,7 @@ describe("JS_Fun_Practice", function () {
     it(`takes any amount of functions and returns a function that takes any amount of
         arguments and gives them to the first function, then that result to the
         second function and so on`, function () {
-      assert.equal(
-        sol.compose(sol.add, sol.doubl, sol.fill, sol.max)(0, 1, 2),
-        6
-      );
+      assert.equal(sol.compose(sol.add, sol.doubl, sol.fill, sol.max)(0, 1, 2), 6);
     });
   });
   describe("limitb(binary, lmt)", function () {
@@ -349,11 +337,7 @@ describe("JS_Fun_Practice", function () {
   });
   describe("concat(...gens)", function () {
     it(`is generalized for any amount of arguments`, function () {
-      let con = sol.concat(
-        sol.genFromTo(0, 3),
-        sol.genFromTo(0, 2),
-        sol.genFromTo(5, 7)
-      );
+      let con = sol.concat(sol.genFromTo(0, 3), sol.genFromTo(0, 2), sol.genFromTo(5, 7));
       assert.equal(con.next().value, 0);
       assert.equal(con.next().value, 1);
       assert.equal(con.next().value, 2);
@@ -366,11 +350,7 @@ describe("JS_Fun_Practice", function () {
   });
   describe("concatTail(...gens)", function () {
     it(`uses tail-recursion to perform the concating`, function () {
-      let con = sol.concatTail(
-        sol.genFromTo(0, 3),
-        sol.genFromTo(0, 2),
-        sol.genFromTo(5, 7)
-      );
+      let con = sol.concatTail(sol.genFromTo(0, 3), sol.genFromTo(0, 2), sol.genFromTo(5, 7));
       assert.equal(con.next().value, 0);
       assert.equal(con.next().value, 1);
       assert.equal(con.next().value, 2);
@@ -529,10 +509,7 @@ describe("JS_Fun_Practice", function () {
   });
   describe("expn(value)", function () {
     it(`is a modified exp that can evaluate nested array expressions`, function () {
-      assert.equal(
-        sol.expn([Math.sqrt, [sol.add, [sol.square, 3], [sol.square, 4]]]),
-        5
-      );
+      assert.equal(sol.expn([Math.sqrt, [sol.add, [sol.square, 3], [sol.square, 4]]]), 5);
       // assert.equal(sol.expn(34), 34);
     });
   });
@@ -625,17 +602,13 @@ describe("JS_Fun_Practice", function () {
   });
   describe("mapRecurse(array, predicate)", function () {
     it(`performs a transformation for each element of a given array, recursively`, function () {
-      expect(sol.mapRecurse([1, 2, 3, 4], (x) => x * 2)).to.deep.equal([
-        2, 4, 6, 8,
-      ]);
+      expect(sol.mapRecurse([1, 2, 3, 4], (x) => x * 2)).to.deep.equal([2, 4, 6, 8]);
     });
   });
   describe("filterRecurse(array, predicate)", function () {
     it(`takes in an array and a predicate function and returns a new array by
         filtering out all items using the predicate, recursively.`, function () {
-      expect(sol.filterRecurse([1, 2, 3, 4], (x) => x % 2 === 0)).to.deep.equal(
-        [2, 4]
-      );
+      expect(sol.filterRecurse([1, 2, 3, 4], (x) => x % 2 === 0)).to.deep.equal([2, 4]);
     });
   });
 });
